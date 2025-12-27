@@ -1,16 +1,9 @@
-import Fastify from "fastify";
 import { config } from "./config";
-import { registerV1Routes } from "./routes/v1";
-
-const app = Fastify({
-  logger: true
-});
-
-app.get("/health", async () => ({ status: "ok" }));
+import { buildApp } from "./app";
 
 const start = async (): Promise<void> => {
   try {
-    await registerV1Routes(app);
+    const app = await buildApp();
     await app.listen({
       host: config.server.host,
       port: config.server.port
