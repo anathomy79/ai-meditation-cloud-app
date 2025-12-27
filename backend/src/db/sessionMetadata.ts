@@ -10,6 +10,7 @@ export interface SessionMetadata {
   model?: string;
   transcript?: string;
   audioPath?: string;
+  audioUrl?: string;
   durationSeconds?: number;
   createdAt?: Timestamp;
   updatedAt?: Timestamp;
