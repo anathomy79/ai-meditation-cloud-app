@@ -1,0 +1,187 @@
+:root {
+  color-scheme: light;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background: #f5f6fb;
+  color: #1f2933;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.hero {
+  background: linear-gradient(120deg, #6d7cff, #9ad4ff);
+  color: #fff;
+  padding: 48px 24px;
+}
+
+.hero h1 {
+  margin: 8px 0;
+  font-size: 2rem;
+}
+
+.hero .subtitle {
+  max-width: 640px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+main {
+  display: grid;
+  gap: 24px;
+  max-width: 920px;
+  margin: -32px auto 48px;
+  padding: 0 24px 48px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.card.warning {
+  border: 1px solid #f5c2c7;
+  background: #fff5f5;
+}
+
+.hidden {
+  display: none;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  gap: 8px;
+}
+
+input,
+textarea {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #d3dce6;
+  font-size: 1rem;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #5a67ff;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: #dbe3ff;
+  color: #2b3a67;
+}
+
+button.ghost {
+  background: transparent;
+  color: #5a67ff;
+  border: 1px solid #ccd6f6;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid.two {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.muted {
+  color: #6b7280;
+}
+
+.error {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.result {
+  margin-top: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.chat-log {
+  min-height: 120px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px;
+  background: #f8fafc;
+  margin-bottom: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.chat-bubble {
+  padding: 10px 14px;
+  border-radius: 12px;
+  max-width: 80%;
+}
+
+.chat-bubble.user {
+  justify-self: end;
+  background: #5a67ff;
+  color: #fff;
+}
+
+.chat-bubble.assistant {
+  justify-self: start;
+  background: #e2e8f0;
+  color: #1f2933;
+}
+
+.mood-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  display: grid;
+  gap: 8px;
+}
+
+.mood-item {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  display: grid;
+  gap: 4px;
+}

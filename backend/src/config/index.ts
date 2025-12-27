@@ -33,6 +33,9 @@ export const config = {
     apiKey: optionalEnv("TTS_API_KEY"),
     voice: optionalEnv("TTS_VOICE", "default")
   },
+  audio: {
+    fallbackUrl: optionalEnv("AUDIO_FALLBACK_URL")
+  },
   firebase: {
     projectId: optionalEnv("FIREBASE_PROJECT_ID"),
     serviceAccountJson: optionalEnv("FIREBASE_SERVICE_ACCOUNT_JSON")

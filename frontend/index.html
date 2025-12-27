@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Meditation Cloud App</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">AI Meditation Cloud App</p>
+        <h1>Meditation, Mood-Check-ins und Coach-Chat</h1>
+        <p class="subtitle">
+          Verbinde Firebase-Auth, starte Sessions und verwalte Mood-Tracking direkt im Browser.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>Konfiguration</h2>
+        <p class="muted">
+          Hinterlege hier deine Firebase-Konfiguration sowie die Base-URL des Backends.
+        </p>
+        <label for="firebase-config">Firebase Config (JSON)</label>
+        <textarea id="firebase-config" rows="6" placeholder='{"apiKey":"...","authDomain":"...","projectId":"..."}'></textarea>
+        <label for="api-base-url">API Base-URL</label>
+        <input id="api-base-url" type="url" placeholder="https://api.example.com" />
+        <div class="row">
+          <button id="save-config">Speichern</button>
+          <span id="config-status" class="muted"></span>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Authentifizierung</h2>
+        <div class="grid two">
+          <label>
+            E-Mail
+            <input id="auth-email" type="email" placeholder="you@example.com" />
+          </label>
+          <label>
+            Passwort
+            <input id="auth-password" type="password" placeholder="••••••••" />
+          </label>
+        </div>
+        <div class="row">
+          <button id="sign-in">Anmelden</button>
+          <button id="sign-up" class="secondary">Registrieren</button>
+          <button id="sign-in-anon" class="secondary">Anonym anmelden</button>
+          <button id="sign-out" class="ghost">Abmelden</button>
+        </div>
+        <p id="auth-status" class="muted">Nicht angemeldet.</p>
+      </section>
+
+      <section class="card">
+        <h2>Meditation starten</h2>
+        <div class="grid two">
+          <label>
+            Ziel / Intention
+            <input id="session-goal" type="text" placeholder="z.B. Stress abbauen" />
+          </label>
+          <label>
+            Stimmung
+            <input id="session-mood" type="text" placeholder="z.B. angespannt" />
+          </label>
+        </div>
+        <button id="start-session">Meditation starten</button>
+        <div class="result">
+          <h3>Script</h3>
+          <p id="session-transcript" class="muted">Noch keine Session gestartet.</p>
+          <audio id="session-audio" controls></audio>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Coach-Chat</h2>
+        <div id="chat-log" class="chat-log"></div>
+        <div class="row">
+          <input id="chat-input" type="text" placeholder="Wie kann ich heute entspannen?" />
+          <button id="chat-send">Senden</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Mood-Check-ins</h2>
+        <div class="grid two">
+          <label>
+            Mood-Label
+            <input id="mood-label" type="text" placeholder="z.B. ruhig" />
+          </label>
+          <label>
+            Notizen
+            <input id="mood-notes" type="text" placeholder="Kurzbeschreibung" />
+          </label>
+        </div>
+        <button id="save-mood">Check-in speichern</button>
+        <ul id="mood-list" class="mood-list"></ul>
+      </section>
+
+      <section id="safety-banner" class="card warning hidden">
+        <h2>Sicherheits-Hinweis</h2>
+        <p id="safety-message"></p>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
