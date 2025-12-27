@@ -18,6 +18,15 @@ const booleanEnv = (key: string, fallback = false): boolean => {
   return raw.toLowerCase() === "true" || raw === "1";
 };
 
+const numberEnv = (key: string, fallback: number): number => {
+  const raw = process.env[key];
+  if (raw === undefined) {
+    return fallback;
+  }
+  const parsed = Number(raw);
+  return Number.isFinite(parsed) ? parsed : fallback;
+};
+
 export const config = {
   server: {
     host: optionalEnv("HOST", "0.0.0.0"),
@@ -29,9 +38,11 @@ export const config = {
     model: optionalEnv("LLM_MODEL", "gpt-4o-mini")
   },
   tts: {
-    provider: optionalEnv("TTS_PROVIDER", "elevenlabs"),
+    provider: optionalEnv("TTS_PROVIDER", "google"),
     apiKey: optionalEnv("TTS_API_KEY"),
-    voice: optionalEnv("TTS_VOICE", "default")
+    voice: optionalEnv("TTS_VOICE", ""),
+    language: optionalEnv("TTS_LANGUAGE", "de-DE"),
+    speakingRate: numberEnv("TTS_SPEAKING_RATE", 1.0)
   },
   firebase: {
     projectId: optionalEnv("FIREBASE_PROJECT_ID"),
