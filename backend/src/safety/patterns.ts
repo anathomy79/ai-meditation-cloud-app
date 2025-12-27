@@ -1,0 +1,30 @@
+export const CRISIS_PATTERNS: RegExp[] = [
+  /suizid/i,
+  /suizidal/i,
+  /selbstmord/i,
+  /selbstverletz/i,
+  /ritzen/i,
+  /ich will nicht mehr leben/i,
+  /ich will nicht mehr da sein/i,
+  /mich umbringen/i,
+  /mir das leben nehmen/i,
+  /kill myself/i,
+  /end my life/i,
+  /self[-\s]?harm/i,
+  /suicide/i,
+  /overdose/i,
+  /akute krise/i,
+  /notfall/i,
+];
+
+export const MEDICAL_ADVICE_PATTERNS: RegExp[] = [
+  /diagnos/i,
+  /medikament/i,
+  /dosierung/i,
+  /rezept/i,
+  /verschreib/i,
+  /therapieplan/i,
+  /behandlungsplan/i,
+  /heil(?:en|ung)/i,
+  /nimm\s+\d+\s?mg/i,
+];
