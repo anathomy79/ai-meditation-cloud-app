@@ -1,0 +1,26 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "${_IMAGE}", "."]
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "${_IMAGE}"]
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: "gcloud"
+    args:
+      [
+        "run",
+        "deploy",
+        "${_SERVICE}",
+        "--image",
+        "${_IMAGE}",
+        "--region",
+        "${_REGION}",
+        "--platform",
+        "managed",
+        "--set-env-vars",
+        "NODE_ENV=production"
+      ]
+
+substitutions:
+  _SERVICE: "ai-meditation-backend"
+  _REGION: "europe-west1"
+  _IMAGE: "gcr.io/$PROJECT_ID/ai-meditation-backend:$COMMIT_SHA"
