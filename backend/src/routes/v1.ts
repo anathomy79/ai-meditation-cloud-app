@@ -38,16 +38,8 @@ export const registerV1Routes = async (app: FastifyInstance): Promise<void> => {
         });
       }
 
-      const transcript = [
-        `Geführte Meditation zum Thema \"${body.theme}\" für ${body.durationMinutes} Minuten.`,
-        body.tone ? `Ton: ${body.tone}.` : "Ton: ruhig und unterstützend.",
-        "Finde eine bequeme Position, atme tief ein und aus.",
-        "Lenke deine Aufmerksamkeit sanft auf den Atem.",
-        "Wenn Gedanken auftauchen, nimm sie wahr und kehre freundlich zum Atem zurück.",
-        "Beende die Meditation langsam und öffne die Augen, wenn du bereit bist.",
-      ].join(" ");
-
-      const outputCheck = runOutputFilter(transcript, body.locale);
+      const outputCandidate = "Not implemented";
+      const outputCheck = runOutputFilter(outputCandidate, body.locale);
       if (outputCheck.status === "block" && outputCheck.response) {
         return reply.code(200).send({
           ...outputCheck.response,
@@ -55,10 +47,10 @@ export const registerV1Routes = async (app: FastifyInstance): Promise<void> => {
         });
       }
 
-      return reply.code(200).send({
-        transcript,
+      return reply.code(501).send({
+        message: "Not implemented",
         disclaimer: buildDisclaimer(body.locale),
-        safety: { status: "ok", category: "none" },
+        safety: { status: "pending", category: "none" },
       });
     });
 
@@ -79,13 +71,8 @@ export const registerV1Routes = async (app: FastifyInstance): Promise<void> => {
         });
       }
 
-      const responseText = [
-        "Danke, dass du das teilst.",
-        "Wenn es okay ist, lass uns einen kurzen Moment innehalten und gemeinsam tief durchatmen.",
-        "Spüre, wie dein Atem kommt und geht, ohne ihn zu bewerten.",
-      ].join(" ");
-
-      const outputCheck = runOutputFilter(responseText, body.locale);
+      const outputCandidate = "Not implemented";
+      const outputCheck = runOutputFilter(outputCandidate, body.locale);
       if (outputCheck.status === "block" && outputCheck.response) {
         return reply.code(200).send({
           ...outputCheck.response,
@@ -93,10 +80,10 @@ export const registerV1Routes = async (app: FastifyInstance): Promise<void> => {
         });
       }
 
-      return reply.code(200).send({
-        message: responseText,
+      return reply.code(501).send({
+        message: "Not implemented",
         disclaimer: buildDisclaimer(body.locale),
-        safety: { status: "ok", category: "none" },
+        safety: { status: "pending", category: "none" },
       });
     });
 
