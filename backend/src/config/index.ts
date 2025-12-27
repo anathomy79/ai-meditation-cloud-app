@@ -19,9 +19,16 @@ const booleanEnv = (key: string, fallback = false): boolean => {
 };
 
 export const config = {
+  gcp: {
+    projectId: optionalEnv("GCP_PROJECT_ID", optionalEnv("GOOGLE_CLOUD_PROJECT")),
+  },
   server: {
     host: optionalEnv("HOST", "0.0.0.0"),
     port: Number(optionalEnv("PORT", "8080"))
+  },
+  service: {
+    name: optionalEnv("SERVICE_NAME", optionalEnv("K_SERVICE", "ai-meditation-backend")),
+    version: optionalEnv("SERVICE_VERSION", optionalEnv("K_REVISION", "local")),
   },
   llm: {
     provider: optionalEnv("LLM_PROVIDER", "openai"),
@@ -35,7 +42,17 @@ export const config = {
   },
   firebase: {
     projectId: optionalEnv("FIREBASE_PROJECT_ID"),
-    serviceAccountJson: optionalEnv("FIREBASE_SERVICE_ACCOUNT_JSON")
+    serviceAccountJson: optionalEnv("FIREBASE_SERVICE_ACCOUNT_JSON"),
+    serviceAccountSecret: optionalEnv("FIREBASE_SERVICE_ACCOUNT_SECRET"),
+    storageBucket: optionalEnv("FIREBASE_STORAGE_BUCKET"),
+  },
+  secrets: {
+    llmApiKeySecret: optionalEnv("LLM_API_KEY_SECRET"),
+    ttsApiKeySecret: optionalEnv("TTS_API_KEY_SECRET"),
+  },
+  observability: {
+    enableCloudLogging: booleanEnv("ENABLE_CLOUD_LOGGING", true),
+    enableErrorReporting: booleanEnv("ENABLE_ERROR_REPORTING", true),
   },
   featureFlags: {
     enableChat: booleanEnv("FEATURE_CHAT", true),

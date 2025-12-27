@@ -18,7 +18,7 @@ export async function appendChatMessage(
   messageId: string,
   payload: ChatMessage,
 ) {
-  ensureFirebaseApp();
+  await ensureFirebaseApp();
   const db = getFirestore();
   const ref = db
     .collection(CHATS_COLLECTION)
@@ -36,7 +36,7 @@ export async function appendChatMessage(
 }
 
 export async function listChatMessages(uid: string, limit = 100) {
-  ensureFirebaseApp();
+  await ensureFirebaseApp();
   const db = getFirestore();
   const snapshot = await db
     .collection(CHATS_COLLECTION)
@@ -50,4 +50,11 @@ export async function listChatMessages(uid: string, limit = 100) {
     id: doc.id,
     ...(doc.data() as ChatMessage),
   }));
+}
+
+export async function deleteChatHistoryByUser(uid: string) {
+  await ensureFirebaseApp();
+  const db = getFirestore();
+  const ref = db.collection(CHATS_COLLECTION).doc(uid);
+  await db.recursiveDelete(ref);
 }

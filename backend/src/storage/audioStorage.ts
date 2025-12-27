@@ -17,7 +17,7 @@ export async function uploadAudioBuffer(
   buffer: Buffer,
   options: UploadAudioOptions = {},
 ): Promise<UploadAudioResult> {
-  ensureFirebaseApp();
+  await ensureFirebaseApp();
   const bucket = getStorage().bucket();
   const file = bucket.file(storagePath);
 
@@ -42,7 +42,7 @@ export async function getSignedAudioUrl(
   storagePath: string,
   expiresInSeconds = 60 * 60,
 ) {
-  ensureFirebaseApp();
+  await ensureFirebaseApp();
   const bucket = getStorage().bucket();
   const file = bucket.file(storagePath);
   const expires = Date.now() + expiresInSeconds * 1000;

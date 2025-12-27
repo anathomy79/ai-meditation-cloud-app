@@ -7,19 +7,31 @@ export interface MoodLog {
   uid: string;
   label: string;
   score?: number;
-  notes?: string;
   sessionId?: string;
   createdAt?: Timestamp;
   updatedAt?: Timestamp;
 }
 
+const minimizeMoodLog = (payload: MoodLog | Partial<MoodLog>): Partial<MoodLog> => {
+  const minimized: Partial<MoodLog> = {
+    uid: payload.uid,
+    label: payload.label,
+    score: payload.score,
+    sessionId: payload.sessionId,
+    createdAt: payload.createdAt,
+  };
+  return Object.fromEntries(
+    Object.entries(minimized).filter(([, value]) => value !== undefined),
+  ) as Partial<MoodLog>;
+};
+
 export async function createMoodLog(moodId: string, payload: MoodLog) {
-  ensureFirebaseApp();
+  await ensureFirebaseApp();
   const db = getFirestore();
   const ref = db.collection(MOODS_COLLECTION).doc(moodId);
 
   await ref.set({
-    ...payload,
+    ...minimizeMoodLog(payload),
     createdAt: payload.createdAt ?? Timestamp.now(),
     updatedAt: FieldValue.serverTimestamp(),
   });
@@ -28,7 +40,7 @@ export async function createMoodLog(moodId: string, payload: MoodLog) {
 }
 
 export async function listMoodLogsByUser(uid: string, limit = 50) {
-  ensureFirebaseApp();
+  await ensureFirebaseApp();
   const db = getFirestore();
   const snapshot = await db
     .collection(MOODS_COLLECTION)
@@ -39,7 +51,7 @@ export async function listMoodLogsByUser(uid: string, limit = 50) {
 
   return snapshot.docs.map((doc) => ({
     id: doc.id,
-    ...(doc.data() as MoodLog),
+    ...(minimizeMoodLog(doc.data() as MoodLog) as MoodLog),
   }));
 }
 
@@ -47,14 +59,31 @@ export async function updateMoodLog(
   moodId: string,
   updates: Partial<MoodLog>,
 ) {
-  ensureFirebaseApp();
+  await ensureFirebaseApp();
   const db = getFirestore();
   const ref = db.collection(MOODS_COLLECTION).doc(moodId);
 
   await ref.update({
-    ...updates,
+    ...minimizeMoodLog(updates),
     updatedAt: FieldValue.serverTimestamp(),
   });
 
   return ref;
+}
+
+const deleteMoodDocs = async (refs: FirebaseFirestore.QueryDocumentSnapshot[]) => {
+  const db = getFirestore();
+  for (let i = 0; i < refs.length; i += 500) {
+    const batch = db.batch();
+    refs.slice(i, i + 500).forEach((doc) => batch.delete(doc.ref));
+    await batch.commit();
+  }
+};
+
+export async function deleteMoodLogsByUser(uid: string) {
+  await ensureFirebaseApp();
+  const db = getFirestore();
+  const snapshot = await db.collection(MOODS_COLLECTION).where("uid", "==", uid).get();
+  await deleteMoodDocs(snapshot.docs);
+  return snapshot.size;
 }

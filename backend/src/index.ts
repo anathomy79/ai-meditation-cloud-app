@@ -1,10 +1,13 @@
 import Fastify from "fastify";
 import { config } from "./config";
+import { registerObservability } from "./observability";
 import { registerV1Routes } from "./routes/v1";
 
 const app = Fastify({
   logger: true
 });
+
+registerObservability(app);
 
 app.get("/health", async () => ({ status: "ok" }));
 
