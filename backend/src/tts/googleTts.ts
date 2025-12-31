@@ -1,4 +1,4 @@
-import textToSpeech from "@google-cloud/text-to-speech";
+import * as textToSpeech from "@google-cloud/text-to-speech";
 import { config } from "../config";
 
 export interface GoogleTtsOptions {
